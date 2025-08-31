@@ -5,7 +5,7 @@ import com.shopmate.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,17 +13,19 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/product")
 public class ProductController {
     private final ProductService productService;
+
+    @PostMapping()
     public ResponseEntity<?> addProduct(CreateProductRequest createProductRequest){
-       boolean isProductAdded= productService.addProduct(createProductRequest) ;
+       boolean isProductAdded = productService.addProduct(createProductRequest) ;
        return ResponseEntity.ok(isProductAdded);
     }
 
-    public ResponseEntity<?> getProduct(){
-        List<Product> productList=new ArrayList<>();
-       // productList=productService.getProduct()
-
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getProduct(@PathVariable String id){
+        return ResponseEntity.ok(productService.getProduct(id));
     }
 
 

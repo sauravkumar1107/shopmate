@@ -1,7 +1,9 @@
 package com.shopmate.product.request;
 
 import com.shopmate.product.model.Features;
+import lombok.Data;
 
+@Data
 public class CreateProductRequest {
     private String name;
     private String title;
