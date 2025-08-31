@@ -7,7 +7,7 @@ import java.util.Map;
 
 @Data
 @AllArgsConstructor
-public class PhoneFeatures  implements Features{
+public class PhoneFeatures  extends Features{
     private Map<String, String> connectivityFeatures;
     private Map<String, String> multimediaFeatures;
     private Map<String, String> callFeatures;

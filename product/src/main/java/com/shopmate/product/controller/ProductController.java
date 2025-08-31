@@ -18,7 +18,7 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping()
-    public ResponseEntity<?> addProduct(CreateProductRequest createProductRequest){
+    public ResponseEntity<?> addProduct(@RequestBody CreateProductRequest createProductRequest){
        boolean isProductAdded = productService.addProduct(createProductRequest) ;
        return ResponseEntity.ok(isProductAdded);
     }

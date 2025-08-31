@@ -16,7 +16,8 @@ public class ProductService {
     private final ProductTransformer productTransformer;
     public boolean addProduct(CreateProductRequest createProductRequest) {
         try {
-            productRepository.save(productTransformer.buildProductFromCreateProductRequest(createProductRequest));
+            Product logProduct= productRepository.save(productTransformer.buildProductFromCreateProductRequest(createProductRequest));
+            log.info("product : {}", logProduct.getPrice());
             return true;
         } catch (Exception e) {
             log.error("Error occurred while saving", e);
