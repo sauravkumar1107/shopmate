@@ -28,5 +28,18 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProduct(id));
     }
 
+    // 1--fetch products for given filters-> name, price, category, features
+    // 2--compare products->
+       // req-> list of product names
+       // resp-> comparison in table formats
+    // 3--similar products->
+      // req-> product id
+      // res-> list of products
+    // 4--product info
+      // req-> name
+    // 5--product review
+       // req-> name
+       // response-> review summary
+
 
 }
