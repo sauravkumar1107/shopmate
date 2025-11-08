@@ -16,12 +16,10 @@ public class QueryController{
         this.selectorService = selectorService;
     }
 
-    @PostMapping("/route")
+    @GetMapping("/route")
     public JsonNode routeQuery(@RequestParam String query) {
         List<String> apiOptions = List.of(
-                "GET /transactions/failed?limit={limit}&after={date} → Returns failed transactions",
-                "GET /transactions/success?limit={limit} → Returns successful transactions",
-                "GET /suppliers/stats?supplierId={id} → Returns statistics for a supplier"
+                "GET /api/product/{id} → Returns product with of a particular id"
         );
 
         return selectorService.selectEndpointWithParams(query, apiOptions);
