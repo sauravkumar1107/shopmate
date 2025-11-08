@@ -38,14 +38,12 @@ public class EndpointSelectorService {
                 .messages(List.of(new ChatMessage("user", prompt.toString())))
                 .temperature(0.0)
                 .build();
-        System.out.println("request:"+request);
         String response = openAiService.createChatCompletion(request)
                 .getChoices()
                 .get(0)
                 .getMessage()
                 .getContent()
                 .trim();
-        System.out.println("response:"+response);
         try {
             return objectMapper.readTree(response);
         } catch (Exception e) {
