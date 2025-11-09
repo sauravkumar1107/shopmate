@@ -35,7 +35,7 @@ public class ProductController {
     // 3--similar products->
       // req-> product id
       // res-> list of products
-    // 4--product info
+    // 4--product info-- done
       // req-> name
     // 5--product review
        // req-> name
