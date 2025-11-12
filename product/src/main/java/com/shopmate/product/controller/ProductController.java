@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import retrofit2.http.Path;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 @RequestMapping("/api/product")
 public class ProductController {
     private final ProductService productService;
+    private final InternalQueryController internalQueryController;
 
     @PostMapping()
     public ResponseEntity<?> addProduct(@RequestBody CreateProductRequest createProductRequest){
@@ -26,6 +28,12 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getProduct(@PathVariable String id){
         return ResponseEntity.ok(productService.getProduct(id));
+    }
+
+    @GetMapping("/compare/{id1}/{id2}")
+    public ResponseEntity<?> getComparisons(@PathVariable String id1, @PathVariable String id2) {
+        List<Product> productList = List.of(productService.getProduct(id1), productService.getProduct(id2));
+        return ResponseEntity.ok(internalQueryController.comparison(productList));
     }
 
     // 1--fetch products for given filters-> name, price, category, features
