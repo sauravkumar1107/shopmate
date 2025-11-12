@@ -23,7 +23,7 @@ public class JavaHttpClientService {
 
     public JavaHttpClientService() {
         this.httpClient = HttpClient.newBuilder()
-                .connectTimeout(Duration.ofSeconds(10))
+                .connectTimeout(Duration.ofMinutes(4))
                 .build();
     }
 
@@ -41,6 +41,7 @@ public class JavaHttpClientService {
 
             // Reconstruct baseUrl (split removed "http://")
             baseUrl = "http://" + baseUrl.substring(baseUrl.indexOf("localhost"));
+//            System.out.println("BaseUrl: " + baseUrl);
 
             // 2️⃣ Replace path variables like {id}
             Map<String, String> params = invocationRequest.getParams();
@@ -48,11 +49,12 @@ public class JavaHttpClientService {
 
             // 3️⃣ Append remaining params as query params
             String finalUrl = appendQueryParams(baseUrl, params);
+//            System.out.println("finalUrl: " + finalUrl);
 
             // 4️⃣ Build request
             HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
                     .uri(URI.create(finalUrl))
-                    .timeout(Duration.ofSeconds(10))
+                    .timeout(Duration.ofMinutes(4))
                     .header("Accept", "application/json");
 
             HttpRequest request = switch (method) {

@@ -24,7 +24,7 @@ public class QueryController{
         List<String> apiOptions = List.of(
                 "GET/http://localhost:8080/api/product/match/{id} -> Returns products similar to the given product id",
                 "GET/http://localhost:8080/api/product/{id} → Returns product with of a particular id",
-                "GET/http://localhost:8080/api/product/match/{id1}/{id2} -> Returns a comparison between product id1 and id2"
+                "GET/http://localhost:8080/api/product/compare/{id1}/{id2} -> Returns a comparison between product id1 and id2"
                 );
 
         InvocationRequest invocationRequest= selectorService.selectEndpointWithParams(query, apiOptions);
