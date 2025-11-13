@@ -41,4 +41,7 @@ public class ProductService {
         );
     }
 
+    public Object getAllProducts() {
+        return productRepository.findAll();
+    }
 }
