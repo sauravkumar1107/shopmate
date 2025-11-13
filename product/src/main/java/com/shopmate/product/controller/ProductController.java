@@ -1,6 +1,7 @@
 package com.shopmate.product.controller;
 import com.shopmate.product.model.Product;
 import com.shopmate.product.request.CreateProductRequest;
+import com.shopmate.product.request.ProductFilterRequest;
 import com.shopmate.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.repository.Query;
@@ -18,7 +19,7 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
     private final InternalQueryController internalQueryController;
-
+   // private final ProductFilterRequest productFilterRequest;
     @PostMapping()
     public ResponseEntity<?> addProduct(@RequestBody CreateProductRequest createProductRequest){
        boolean isProductAdded = productService.addProduct(createProductRequest) ;
@@ -34,6 +35,22 @@ public class ProductController {
     public ResponseEntity<?> getComparisons(@PathVariable String id1, @PathVariable String id2) {
         List<Product> productList = List.of(productService.getProduct(id1), productService.getProduct(id2));
         return ResponseEntity.ok(internalQueryController.comparison(productList));
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<?> filterProducts(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) Double minPrice,
+            @RequestParam(required = false) Double maxPrice
+    ) {
+        ProductFilterRequest productFilterRequest = new ProductFilterRequest();
+        productFilterRequest.setName(name);
+        productFilterRequest.setCategory(category);
+        productFilterRequest.setMinPrice(minPrice);
+        productFilterRequest.setMaxPrice(maxPrice);
+
+        return ResponseEntity.ok(productService.filterProducts(productFilterRequest));
     }
 
     // 1--fetch products for given filters-> name, price, category, features

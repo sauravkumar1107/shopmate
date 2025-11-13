@@ -3,10 +3,13 @@ package com.shopmate.product.service;
 import com.shopmate.product.dao.ProductRepository;
 import com.shopmate.product.model.Product;
 import com.shopmate.product.request.CreateProductRequest;
+import com.shopmate.product.request.ProductFilterRequest;
 import com.shopmate.product.transformer.ProductTransformer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +31,14 @@ public class ProductService {
 
     public Product getProduct(String id) {
         return productRepository.findById(id).orElse(null);
+    }
+    public List<Product> filterProducts(ProductFilterRequest request) {
+        return productRepository.filterProducts(
+                request.getName(),
+                request.getCategory(),
+                request.getMinPrice(),
+                request.getMaxPrice()
+        );
     }
 
 }
